@@ -4,6 +4,8 @@ const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
 const SignIn = lazy(() => import('../pages/Authentication/SignIn'));
 const SignUp = lazy(() => import('../pages/Authentication/SignUp'));
+const Category = lazy(() => import('../pages/Category/Category'));
+const CategoryForm = lazy(() => import('../pages/Category/CategoryForm'));
 
 const coreRoutes = [
   {
@@ -17,9 +19,14 @@ const coreRoutes = [
     component: SignUp,
   },
   {
-    path: '/profile',
-    title: 'Profile',
-    component: Profile,
+    path: '/category',
+    title: 'Category',
+    component: Category,
+  },
+  {
+    path: '/category/:id',
+    title: 'Category',
+    component: CategoryForm,
   },
   {
     path: '/settings',
