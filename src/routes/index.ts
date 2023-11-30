@@ -7,13 +7,13 @@ const SignUp = lazy(() => import('../pages/Authentication/SignUp'));
 
 const coreRoutes = [
   {
-    path: '/login',
+    path: '/signin',
     title: 'Sign In',
     component: SignIn,
   },
   {
-    path: '/register',
-    title: 'Register',
+    path: '/signup',
+    title: 'Sign Up',
     component: SignUp,
   },
   {

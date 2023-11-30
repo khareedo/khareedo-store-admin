@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "apexcharts": "^3.44.0",
+    "axios": "^1.6.2",
+    "email-validator": "^2.0.4",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
