@@ -4,22 +4,13 @@ import CustomerForm from '../pages/Customer/CustomerForm';
 
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
-const SignIn = lazy(() => import('../pages/Authentication/SignIn'));
-const SignUp = lazy(() => import('../pages/Authentication/SignUp'));
 const Category = lazy(() => import('../pages/Category/Category'));
 const CategoryForm = lazy(() => import('../pages/Category/CategoryForm'));
 
+const Product = lazy(() => import('../pages/Product/Product'));
+const ProductForm = lazy(() => import('../pages/Product/ProductForm'));
+
 const coreRoutes = [
-  {
-    path: '/signin',
-    title: 'Sign In',
-    component: SignIn,
-  },
-  {
-    path: '/signup',
-    title: 'Sign Up',
-    component: SignUp,
-  },
   {
     path: '/category',
     title: 'Category',
@@ -36,6 +27,21 @@ const coreRoutes = [
     component: CategoryForm,
   },
   {
+    path: '/product',
+    title: 'Product',
+    component: Product,
+  },
+  {
+    path: '/product/create',
+    title: 'Product Create',
+    component: ProductForm,
+  },
+  {
+    path: '/product/:id',
+    title: 'Product Update',
+    component: ProductForm,
+  },
+  {
     path: '/customer',
     title: 'Customer',
     component: Customer,
@@ -49,6 +55,16 @@ const coreRoutes = [
     path: '/customer/:id',
     title: 'Update Customer',
     component: CustomerForm,
+  },
+  {
+    path: '/profile',
+    title: 'Profile',
+    component: Profile,
+  },
+  {
+    path: '/settings',
+    title: 'Settings',
+    component: Settings,
   },
 ];
 

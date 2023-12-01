@@ -3,38 +3,38 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-const Category = () => {
+const Product = () => {
     const navigate = useNavigate();
-    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
     const [deleteAction, setDeleteAction] = useState(false);
-    const [categoryId, setCategoryId] = useState(null);
+    const [productId, setProductId] = useState(null);
     const ProductOne =
         'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg';
-    const fetchCategories = async () => {
+    const fetchProducts = async () => {
         try {
-            const result = await axios.get(BACKEND_URL + 'category');
-            setCategories(result.data);
+            const result = await axios.get(BACKEND_URL + 'product');
+            setProducts(result.data);
         } catch (error: any) {
             console.log('Error : ', error.message);
         }
     };
 
     useEffect(() => {
-        fetchCategories();
+        fetchProducts();
     }, []);
 
-    const editCategory = (id: any) => {
-        navigate('/category/' + id);
+    const editProduct = (id: any) => {
+        navigate('/product/' + id);
     };
 
     const onClickDelete = (id: any) => {
-        setCategoryId(id);
+        setProductId(id);
         setDeleteAction(true);
     };
 
-    const deleteCategory = async () => {
-        await axios.delete(BACKEND_URL + 'category/' + categoryId);
-        fetchCategories();
+    const deleteProduct = async () => {
+        await axios.delete(BACKEND_URL + 'product/' + productId);
+        fetchProducts();
     }
     
     return (
@@ -79,8 +79,8 @@ const Category = () => {
                                             <div className='mt-2'>
                                                 <p className='text-sm text-gray-500'>
                                                     Are you sure you want to
-                                                    delete this customer? All
-                                                    of customer data will be
+                                                    delete this product? All
+                                                    of product data will be
                                                     permanently removed. This
                                                     action cannot be undone.
                                                 </p>
@@ -92,7 +92,7 @@ const Category = () => {
                                     <button
                                         type='button'
                                         className='bg-danger hover:bg-danger text-white font-bold py-2 px-4 rounded mr-2'
-                                        onClick={() => deleteCategory()}
+                                        onClick={() => deleteProduct()}
                                     >
                                         Delete
                                     </button>
@@ -114,9 +114,9 @@ const Category = () => {
             <div className='rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark'>
                 <div className='py-6 px-4 md:px-6 xl:px-7.5'>
                     <h4 className='text-xl font-semibold text-black dark:text-white'>
-                        Category
+                        Product
                         <Link
-                            to='/category/create'
+                            to='/product/create'
                             className='focus:outline-none text-white bg-primary hover:bg-success focus:ring-4 focus:ring-green-300 font-medium rounded-lg float-right text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600'
                         >
                             Create New
@@ -129,7 +129,7 @@ const Category = () => {
                         <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                             <tr>
                                 <th scope='col' className='px-6 py-3'>
-                                    Category Name
+                                    Product Name
                                 </th>
                                 <th scope='col' className='px-6 py-3'>
                                     Description
@@ -143,8 +143,8 @@ const Category = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {categories.length ? (
-                                categories.map((category: any, i: any) => {
+                            {products.length ? (
+                                products.map((product: any, i: any) => {
                                     return (
                                         <tr
                                             key={i}
@@ -157,24 +157,24 @@ const Category = () => {
                                                 <div className='h-12.5 w-15 rounded-md'>
                                                     <img
                                                         className='thumb'
-                                                        src={category.thumbnail ? BACKEND_URL + category.thumbnail : ProductOne}
+                                                        src={product.thumbnail ? BACKEND_URL + product.thumbnail : ProductOne}
                                                         alt='Product'
                                                     />
                                                 </div>
-                                                {category.name}
+                                                {product.name}
                                             </th>
                                             <td className='px-6 py-4'>
-                                                {category.description}
+                                                {product.description}
                                             </td>
                                             <td className='px-6 py-4'>
-                                                {category.metaKeyword}
+                                                {product.metaKeyword}
                                             </td>
                                             <td className='px-6 py-4'>
                                                 <button
                                                     className='bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
                                                     onClick={() =>
-                                                        editCategory(
-                                                            category._id
+                                                        editProduct(
+                                                            product._id
                                                         )
                                                     }
                                                 >
@@ -184,7 +184,7 @@ const Category = () => {
                                                     className='bg-danger hover:bg-danger text-white font-bold py-2 px-4 rounded ml-3'
                                                     onClick={() =>
                                                         onClickDelete(
-                                                            category._id
+                                                            product._id
                                                         )
                                                     }
                                                 >
@@ -205,4 +205,4 @@ const Category = () => {
     );
 };
 
-export default Category;
+export default Product;

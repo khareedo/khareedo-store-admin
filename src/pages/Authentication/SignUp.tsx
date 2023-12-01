@@ -42,8 +42,10 @@ const SignUp = () => {
     
     axios.post(BACKEND_URL + 'user', {
       name, username, email, password
-    }).then((res) => {
-      if (res.status == 200) {
+    }).then((res:any) => {
+      console.log('res ', res);
+      
+      if (res.data.success) {
         navigate('/signin');
       }
     }).catch((ex) => {
