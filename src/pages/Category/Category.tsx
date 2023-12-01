@@ -24,11 +24,7 @@ const Category = () => {
     const editCategory = (id: any) => {
         navigate('/category/' + id);
     };
-
-    const createCatefory = () => {
-        navigate('/category/create');
-    };
-
+    
     return (
         <>
             <div className='rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark'>

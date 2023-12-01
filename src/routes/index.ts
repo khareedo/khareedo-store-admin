@@ -1,4 +1,6 @@
 import { lazy } from 'react';
+import Customer from '../pages/Customer/Customer';
+import CustomerForm from '../pages/Customer/CustomerForm';
 
 const Profile = lazy(() => import('../pages/Profile'));
 const Settings = lazy(() => import('../pages/Settings'));
@@ -34,9 +36,19 @@ const coreRoutes = [
     component: CategoryForm,
   },
   {
-    path: '/settings',
-    title: 'Settings',
-    component: Settings,
+    path: '/customer',
+    title: 'Customer',
+    component: Customer,
+  },
+  {
+    path: '/customer/create',
+    title: 'Create Customer',
+    component: CustomerForm,
+  },
+  {
+    path: '/customer/:id',
+    title: 'Update Customer',
+    component: CustomerForm,
   },
 ];
 
