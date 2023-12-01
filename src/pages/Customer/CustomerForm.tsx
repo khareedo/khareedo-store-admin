@@ -52,7 +52,7 @@ const CustomerForm = () => {
         } else {
             axios.post(BACKEND_URL + 'customer/', customer).then((res: any) => {
                 if (res.data.success) {
-                    navigate('/category');
+                    navigate('/customer');
                 }
             });
         }
@@ -122,7 +122,7 @@ const CustomerForm = () => {
                         </label>
                         <input
                             type='text'
-                            placeholder='Customer Email'
+                            placeholder='Phone Number'
                             className='w-full rounded-lg border-[1.5px] border-primary bg-transparent py-2 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input'
                             value={customer.phone}
                             onChange={onChangePhone}
@@ -134,7 +134,7 @@ const CustomerForm = () => {
                         </label>
                         <input
                             type='password'
-                            placeholder='Customer Email'
+                            placeholder='Password'
                             className='w-full rounded-lg border-[1.5px] border-primary bg-transparent py-2 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input'
                             value={customer.password}
                             onChange={onChangePassword}
