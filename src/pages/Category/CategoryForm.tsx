@@ -25,7 +25,6 @@ const CategoryForm = () => {
     };
 
     const onChangeImage = (e: any) => {
-
         setCategory({ ...category, image: e.target.files[0] });
     };
 
@@ -38,21 +37,19 @@ const CategoryForm = () => {
     };
 
     const saveCategory = () => {
-        const formData = new FormData();
-        formData.append('name', category.name);
-        formData.append('description', category.description);
-        formData.append('metaKeyword', category.metaKeyword);
-        formData.append('metaDescription', category.metaDescription);
-        formData.append('thumbnail', category.thumbnail);
-        formData.append('image', category.image);
+        console.log('category ', category);
+        
+        const fd = new FormData();
+        fd.append('name', category.name);
+        fd.append('description', category.description);
+        fd.append('metaKeyword', category.metaKeyword);
+        fd.append('metaDescription', category.metaDescription);
+        fd.append('thumbnail', category.thumbnail);
+        fd.append('image', category.image);
         if (id) {
             axios
-                .patch(BACKEND_URL + 'category/' + id, formData, {
-                    headers: {
-                        accept: 'application/json',
-                        'Accept-Language': 'en-US,en;q=0.8',
-                        'Content-Type': 'multipart/form-data',
-                    },
+                .patch(BACKEND_URL + 'category/' + id, fd, {
+                    headers: {'Content-Type': 'multipart/form-data' }
                 })
                 .then((res: any) => {
                     if (res.data.success) {
@@ -60,7 +57,7 @@ const CategoryForm = () => {
                     }
                 });
         } else {
-            axios.post(BACKEND_URL + 'category/', category).then((res: any) => {
+            axios.post(BACKEND_URL + 'category/', fd).then((res: any) => {
                 if (res.data.success) {
                     navigate('/category');
                 }
