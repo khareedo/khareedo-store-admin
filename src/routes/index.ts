@@ -24,8 +24,13 @@ const coreRoutes = [
     component: Category,
   },
   {
+    path: '/category/create',
+    title: 'Category Create',
+    component: CategoryForm,
+  },
+  {
     path: '/category/:id',
-    title: 'Category',
+    title: 'Category Update',
     component: CategoryForm,
   },
   {

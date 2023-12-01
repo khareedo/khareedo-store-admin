@@ -1,40 +1,90 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Breadcrumb from '../../components/Breadcrumb';
+import axios from 'axios';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 const CategoryForm = () => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [image, setImage] = useState();
-  const [metaKeywords, setMetaKeywords] = useState('');
-  const [metaDescription, setMetaDescription] = useState('');
-  
-  const onChangeName = (e:any) => {
-    const name = e.target.value;
-    setName(name);
-  }
+    const [category, setCategory] = useState({
+        name: '',
+        description: '',
+        image: '',
+        thumbnail: '',
+        metaKeyword: '',
+        metaDescription: '',
+    });
+    const { id } = useParams();
+    const navigate = useNavigate();
 
-  const onChangeDescription = (e:any) => {
-    const description = e.target.value;
-    setDescription(description);
-  }
+    const onChangeName = (e: any) => {
+        setCategory({ ...category, name: e.target.value });
+    };
 
-  const onChangeImage = (e:any) => {
-    const image = e.target.files[0];
-    setImage(image);
-  }
+    const onChangeDescription = (e: any) => {
+        setCategory({ ...category, description: e.target.value });
+    };
 
-  const onChangeMetaKeywords = (e:any) => {
-    const keyword = e.target.value;
-    setMetaKeywords(keyword);
-  }
+    const onChangeImage = (e: any) => {
 
-  const onChangeMetaDescriptions = (e:any) => {
-    const description = e.target.value;
-    setMetaDescription(description);
-  }
+        setCategory({ ...category, image: e.target.files[0] });
+    };
 
-  const saveCategory = () => {
-    console.log('govinda mandal')
-  }
+    const onChangeMetaKeyword = (e: any) => {
+        setCategory({ ...category, metaKeyword: e.target.value });
+    };
+
+    const onChangeMetaDescriptions = (e: any) => {
+        setCategory({ ...category, metaDescription: e.target.value });
+    };
+
+    const saveCategory = () => {
+        const formData = new FormData();
+        formData.append('name', category.name);
+        formData.append('description', category.description);
+        formData.append('metaKeyword', category.metaKeyword);
+        formData.append('metaDescription', category.metaDescription);
+        formData.append('thumbnail', category.thumbnail);
+        formData.append('image', category.image);
+        if (id) {
+            axios
+                .patch(BACKEND_URL + 'category/' + id, formData, {
+                    headers: {
+                        accept: 'application/json',
+                        'Accept-Language': 'en-US,en;q=0.8',
+                        'Content-Type': 'multipart/form-data',
+                    },
+                })
+                .then((res: any) => {
+                    if (res.data.success) {
+                        navigate('/category');
+                    }
+                });
+        } else {
+            axios.post(BACKEND_URL + 'category/', category).then((res: any) => {
+                if (res.data.success) {
+                    navigate('/category');
+                }
+            });
+        }
+    };
+
+    const getCategory = () => {
+        if (id) {
+            axios
+                .get(BACKEND_URL + 'category/' + id)
+                .then((res: any) => {
+                    const category = res.data;
+                    setCategory(category);
+                })
+                .catch((ex) => {
+                    console.log('Error : ', ex.message);
+                });
+        }
+    };
+
+    useEffect(() => {
+        getCategory();
+    }, []);
     return (
         <>
             <Breadcrumb pageName='Category Form' />
@@ -48,7 +98,7 @@ const CategoryForm = () => {
                             type='text'
                             placeholder='Category Name'
                             className='w-full rounded-lg border-[1.5px] border-primary bg-transparent py-2 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input'
-                            value={name}
+                            value={category.name}
                             onChange={onChangeName}
                         />
                     </div>
@@ -60,8 +110,9 @@ const CategoryForm = () => {
                             placeholder='Description'
                             className='w-full rounded-lg border-[1.5px] border-primary bg-transparent py-2 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input'
                             cols={10}
+                            value={category.description}
                             onChange={onChangeDescription}
-                        >{ description }</textarea>
+                        ></textarea>
                     </div>
                     <div>
                         <label className='mb-1 block text-black dark:text-white'>
@@ -70,7 +121,6 @@ const CategoryForm = () => {
                         <input
                             type='file'
                             className='w-full cursor-pointer rounded-lg border-[1.5px] border-stroke bg-transparent font-medium outline-none transition file:mr-5 file:border-collapse file:cursor-pointer file:border-0 file:border-r file:border-solid file:border-stroke file:bg-whiter file:py-2 file:px-5 file:hover:bg-primary file:hover:bg-opacity-10 focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:file:border-form-strokedark dark:file:bg-white/30 dark:file:text-white dark:focus:border-primary'
-                            value={image}
                             onChange={onChangeImage}
                         />
                     </div>
@@ -82,8 +132,8 @@ const CategoryForm = () => {
                             type='text'
                             placeholder='Mata Keywords'
                             className='w-full rounded-lg border-[1.5px] border-primary bg-transparent py-2 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input'
-                            value={metaKeywords}
-                            onChange={onChangeMetaKeywords}
+                            value={category.metaKeyword}
+                            onChange={onChangeMetaKeyword}
                         />
                     </div>
                     <div>
@@ -94,13 +144,25 @@ const CategoryForm = () => {
                             placeholder='Meta Description'
                             className='w-full rounded-lg border-[1.5px] border-primary bg-transparent py-2 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:bg-form-input'
                             cols={10}
+                            value={category.metaDescription}
                             onChange={onChangeMetaDescriptions}
-                        >{ metaDescription }</textarea>
+                        ></textarea>
                     </div>
                     <div>
-                      <button type="button" className="focus:outline-none text-white bg-meta-3 hover:bg-success focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600">
-                        Save
-                      </button>
+                        <button
+                            type='button'
+                            className='focus:outline-none text-white bg-meta-3 hover:bg-success focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600'
+                            onClick={() => saveCategory()}
+                        >
+                            Save
+                        </button>
+                        <Link
+                            className='focus:outline-none text-white bg-black hover:bg-body focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600'
+                            to='/category'
+                        >
+                            {' '}
+                            Cancel{' '}
+                        </Link>
                     </div>
                 </div>
             </div>
