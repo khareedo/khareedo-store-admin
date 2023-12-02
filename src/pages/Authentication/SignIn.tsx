@@ -42,8 +42,10 @@ const SignIn = () => {
                 password,
             })
             .then((res: any) => {
+                
                 localStorage.setItem('token', res.data.token);
-                localStorage.setItem('user', JSON.stringify(res.data.user));
+                localStorage.setItem('name', res.data.name);
+                localStorage.setItem('username', res.data.username);
                 navigate('/');
             });
     };
