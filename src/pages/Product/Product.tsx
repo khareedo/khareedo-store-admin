@@ -129,6 +129,9 @@ const Product = () => {
                         <thead className='text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400'>
                             <tr>
                                 <th scope='col' className='px-6 py-3'>
+                                    Image
+                                </th>
+                                <th scope='col' className='px-6 py-3'>
                                     Product Name
                                 </th>
                                 <th scope='col' className='px-6 py-3'>
@@ -148,22 +151,24 @@ const Product = () => {
                                     return (
                                         <tr
                                             key={i}
-                                            className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+                                            className='border-b dark:bg-gray-800 dark:border-gray-700'
                                         >
                                             <th
                                                 scope='row'
                                                 className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
                                             >
-                                                <div className='h-12.5 w-15 rounded-md'>
+                                                <div className='h-12.5 w-15 rounded-md inline'>
                                                     <img
-                                                        className='thumb'
+                                                        className='inline thumb'
                                                         src={product.thumbnail ? BACKEND_URL + product.thumbnail : ProductOne}
                                                         alt='Product'
                                                     />
                                                 </div>
-                                                {product.name}
                                             </th>
                                             <td className='px-6 py-4'>
+                                                {product.name}
+                                            </td>
+                                            <td className='px-6 py-4 text-ellipsis w-60 line-clamp-2'>
                                                 {product.description}
                                             </td>
                                             <td className='px-6 py-4'>
