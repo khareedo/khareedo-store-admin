@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import KhareedoStoreLogo from '../../images/logo/Khareedo-Store-Logo.png';
+import { Link } from 'react-router-dom';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -153,6 +154,12 @@ const SignIn = () => {
                                         className='w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90'
                                         onClick={() => login()}
                                     />
+                                    <p>
+                                        Want to create an account?{' '}
+                                        <Link to="/signup" className="text-primary">
+                                        Sign Up
+                                        </Link>
+                                    </p>
                                 </div>
                             </form>
                         </div>
