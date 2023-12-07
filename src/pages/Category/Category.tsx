@@ -150,7 +150,7 @@ const Category = () => {
                                     return (
                                         <tr
                                             key={i}
-                                            className='bg-white border-b dark:bg-gray-800 dark:border-gray-700'
+                                            className='border-b dark:bg-gray-800 dark:border-gray-700'
                                         >
                                             <th
                                                 scope='row'
